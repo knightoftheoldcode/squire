@@ -1,0 +1,19 @@
+version: '2'
+services:
+  web:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/squire/
+      - /usr/squire/node_modules
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://squire@postgres/squire
+  postgres:
+    image: postgres:9.6.2-alpine
+    environment:
+      POSTGRES_USER: squire
+      POSTGRES_DB: squire
